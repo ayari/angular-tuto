@@ -1,0 +1,7 @@
+<p>Reference :{{item.reference}}</p>
+<p>Name : {{item.name | uppercase}} </p>
+<a href (click)="getDetails($event)" data-id="{{item.reference}}">getDetail </a>
+<p class="state-0" *ngIf="item.state==0">A livrer</p>
+<p class="state-1" *ngIf="item.state==1">En cours</p>
+<p class="state-2" *ngIf="item.state==2">Commande Livrée</p>
+<hr>

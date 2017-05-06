@@ -1,25 +1,9 @@
-<h1>{{title}}</h1>
-<p>{{text}}</p>
-<form #itemForm="ngForm">
-    <input [(ngModel)]="newItem.reference" name="reference" #reference="ngModel" minlength="5" required />
-    <span [hidden]="reference.valid || reference.pristine">Reference non valide !</span>
-    <input [(ngModel)]="newItem.name" name="name" required #name="ngModel" />
-    <span [hidden]="name.valid || name.pristine">name non valide !</span>
-
-    <input [(ngModel)]="newItem.state" name="state" required #state="ngModel" />
-    <span [hidden]="state.valid || state.pristine">State non valide !</span>
-
-    <button [disabled]="!itemForm.form.valid" (click)="createObject()">Create Event</button>
-</form>
-{{newItem | json}}
-<div *ngFor="let item of collection">
-    <p>Reference :{{item.reference}}</p>
-    <p>Name : {{item.name}} </p>
-    <a href (click)="getDetails($event,2)" data-id="{{item.reference}}">getDetail </a>
-
-
-    <p class="state-0" *ngIf="item.state==0">A livrer</p>
-    <p class="state-1" *ngIf="item.state==1">En cours</p>
-    <p class="state-2" *ngIf="item.state==2">Commande Livrée</p>
-    <hr>
+{{title}}<br/> {{text}}
+<br/>
+<br/> Filtrer par : <input #filterInput (change)="0" />
+<br/>
+<br/>
+<item-form (onCreateObject)="onCreateObject($event)"></item-form>
+<div *ngFor="let item of collection | itemFilter:filterInput.value">
+    <item-detail [item]="item" (onGetDetail)="onGetDetail($event)"></item-detail>
 </div>
